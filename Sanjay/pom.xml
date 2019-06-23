@@ -24,12 +24,6 @@
 	</properties>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-core</artifactId>
-			<version>4.4.0</version>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
