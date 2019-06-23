@@ -4,7 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class BDD_POC_StepDef extends CustomListener{
+public class StepDefinition extends CustomListener{
 
 	@Given("^Navigate to dashboard page of \"([^\"]*)\" site and user enters \"([^\"]*)\" and \"([^\"]*)\"$")
 	public void navigate_to_dashboard_page_of_site_and_user_enters_and(String arg1, String arg2, String arg3)

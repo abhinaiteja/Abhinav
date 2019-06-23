@@ -5,13 +5,13 @@ import org.junit.runner.RunWith;
 import cucumber.api.CucumberOptions;
 
 @RunWith(CustomRunner.class)
-@CucumberOptions(features = "BDD_POC.feature", glue = { "classpath:BDD" },
+@CucumberOptions(features = "Demo.feature", glue = { "classpath:BDD" },
 //strict = true,
 
 		monochrome = true
 //		dryRun = true
 
 )
-public class BDD_Sanity_Test_Runner {
+public class Test_Runner {
 
 }
