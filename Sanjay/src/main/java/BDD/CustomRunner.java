@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
 
 public class CustomRunner extends Cucumber {
 
-	public CustomRunner(Class clazz) throws InitializationError, IOException {
+	public CustomRunner(@SuppressWarnings("rawtypes") Class clazz) throws InitializationError, IOException {
 		super(clazz);
 	}
 	
