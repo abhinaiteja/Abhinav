@@ -13,7 +13,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
 		<POI.version>3.16</POI.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.MainClass>au.com.ccube.Automation_Jar.App</project.build.MainClass>
@@ -83,7 +82,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.13.0</version>
+			<version>3.141.59</version>
 		</dependency>
 		<!-- <dependency> <groupId>com.sun</groupId> <artifactId>tools</artifactId> 
 			<version>latest</version> <scope>system</scope> <systemPath>${JAVA_HOME}\lib\tools.jar</systemPath> 
@@ -363,5 +362,3 @@
 		</dependency>
 	</dependencies>
 </project>
-
-
