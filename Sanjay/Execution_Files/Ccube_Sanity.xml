@@ -1,0 +1,55 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Version 1.0" verbose="1">
+
+	
+	<parameter name="File_Note_Type" value="With_Template_And_Upload" />
+	
+	<parameter name="qa_name" value="Abhi" />
+
+	<test name="Sanity" preserve-order="true">
+
+
+		<classes>
+			<class name="Sanjay.Execution_Files">
+				<methods>
+					
+					<exclude name="execution_Start_Mail" />
+					<include name="Method" />
+					<include name="Method2" />
+					<exclude name="Method3" />
+					<include name="Method4" />
+
+					<include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" />
+					<include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" /> <include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" /><include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" /><include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" /><include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" /><include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" /><include name="Method" />
+					<include name="Method2" />
+					<include name="Method3" />
+					<include name="Method4" />
+						
+
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>
