@@ -1,5 +1,8 @@
 package utilitites;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,13 +31,37 @@ public class GetCellValueForColumnName {
 	private static String columnNameReference = "Name";
 	private static int iteratorforloop = 0;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 //		System.out.println("Value extracted from a particular cell is - "
 //				+ getCellValueAt(workbookLocation, worksheetName, columnNameReference, rowIndex));
 
 		
-		System.out.println("Write cell values - ");
-		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex);
+//		System.out.println("Write cell values - ");
+//		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex);
+		
+		System.out.println("Create a new excel workbook at given location - ");
+		create_new_Excel(System.getProperty("user.dir"));
+	}
+
+	/*
+	 * Description: Use this method to dynamcially create a new excel workbook at given location
+	 * Author: Zaheer Abbas
+	 * Creation date: 6th July, 2019
+	 */
+	private static void create_new_Excel(String property) throws FileNotFoundException {
+
+		System.out.println("Location to create excel workbook is : " + property);
+		workbook = new XSSFWorkbook();
+		FileOutputStream fos = new FileOutputStream(new File("master.xlsx"));
+
+		try {
+			workbook.write(fos);
+			fos.close();
+		} catch (Exception e) {
+			System.out.println("Created new workbook succesfully.");
+		}
+
+		System.out.println("Continue with remaining integration of program.");
 
 	}
 
