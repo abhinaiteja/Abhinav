@@ -18,8 +18,8 @@ public class GetLatestFileFromDirectory {
 	public static void main(String[] args) {
 		
 		
-		 ZonedDateTime dateTime = Instant.ofEpochMilli(millis)
-		            .atZone(ZoneId.of("Australia/Sydney"));
+//		 ZonedDateTime dateTime = Instant.ofEpochMilli(new long 454l)
+//		            .atZone(ZoneId.of("Australia/Sydney"));
 		 
 		long test_timestamp = 1562342834L;
 		LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(test_timestamp),
