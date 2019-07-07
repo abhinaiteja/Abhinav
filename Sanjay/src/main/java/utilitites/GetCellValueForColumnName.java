@@ -1,11 +1,15 @@
 package utilitites;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -19,10 +23,14 @@ public class GetCellValueForColumnName {
 	// Workbook variales
 	private static XSSFWorkbook workbook = null;
 	private static XSSFSheet worksheet = null;
+	private static XSSFRow row=null;
+	private static Cell cellData=null;
 	private static Cell rowCell=null;
 	private static int rowcount = 0;
 	private static int columncount = 0;
 	private static int columnIndex = 0;
+    
+	private static FileOutputStream fos;
 
 	// Method variables to pass
 	private static String workbookLocation = "/Users/zaheer/Documents/GitHub/Abhinav/Sanjay/src/main/java/Workbooks/SampleTest.xlsx";
@@ -31,7 +39,7 @@ public class GetCellValueForColumnName {
 	private static String columnNameReference = "Name";
 	private static int iteratorforloop = 0;
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws Exception {
 //		System.out.println("Value extracted from a particular cell is - "
 //				+ getCellValueAt(workbookLocation, worksheetName, columnNameReference, rowIndex));
 
@@ -39,8 +47,65 @@ public class GetCellValueForColumnName {
 //		System.out.println("Write cell values - ");
 //		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex);
 		
-		System.out.println("Create a new excel workbook at given location - ");
-		create_new_Excel(System.getProperty("user.dir"));
+//		System.out.println("Create a new excel workbook at given location - ");
+//		create_new_Excel(System.getProperty("user.dir"));
+		
+//		System.out.println("Create a new worksheet inside current workbook.");
+//		create_new_worksheet("master.xlsx");
+		
+		System.out.println("Get Row data in variables");
+		getRowDatainVariables();
+	}
+
+	private static void getRowDatainVariables() throws FileNotFoundException, IOException {
+		System.out.println("Get Row data from variables");
+		workbook = new XSSFWorkbook(new FileInputStream("CKB_Object_Mapping_Document Master v2017.2 - Editable.xlsm"));
+		worksheet = workbook.getSheet("Planogram Position");
+		System.out.println("Sheet is accessible");
+	
+		int rowCount = worksheet.getLastRowNum();
+		System.out.println("Get row count -"+rowCount);
+		
+		row = worksheet.getRow(2);
+		cellData = row.getCell(0);
+		System.out.println(cellData.toString());
+
+		
+		System.out.println("Get list of Row values");
+		List<String> listOfValues = new ArrayList<>();
+		for (int i = 0; i < rowCount; i++) {
+			listOfValues.add(worksheet.getRow(i).getCell(0).toString());
+		}
+		
+		System.out.println("Print list of values stored in collection.");
+		for(String listValue: listOfValues) {
+			System.out.println(listValue);
+		}
+
+		System.out.println("Closing workbook");
+		workbook.close();
+	}
+
+	private static void create_new_worksheet(String string) throws Exception {
+
+		System.out.println("Location of workbook to create is " + string);
+		
+		try {
+			workbook = new XSSFWorkbook(new File(string));
+		} catch (Exception e) {
+			System.out.println("Exception while accessing workbook.");
+		}
+
+		String sheetname = "Dynamo";
+
+		System.out.println("Sheet is not present. Create a new worksheet");
+		
+		worksheet = workbook.createSheet(sheetname);
+		fos = new FileOutputStream(new File(string));
+		workbook.write(fos);
+		fos.close();
+		
+		System.out.println("Closing FileOutputStream connection.");
 	}
 
 	/*
