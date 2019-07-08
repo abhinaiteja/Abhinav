@@ -94,19 +94,7 @@ public class GetCellValueForColumnName {
 		}
 		
 		
-		cellData = row.getCell(0);
-		System.out.println(cellData.toString());
-		
-		System.out.println("Get list of Row values");
-		List<String> listOfValues = new ArrayList<>();
-		for (int i = 0; i < rowCount; i++) {
-			listOfValues.add(worksheet.getRow(i).getCell(0).toString());
-		}
-		
-		System.out.println("Print list of values stored in collection.");
-		for(String listValue: listOfValues) {
-			System.out.println(listValue);
-		}
+	
 
 		System.out.println("Closing workbook");
 		workbook.close();
