@@ -65,11 +65,37 @@ public class GetCellValueForColumnName {
 	
 		int rowCount = worksheet.getLastRowNum();
 		System.out.println("Get row count -"+rowCount);
-		
+		int indexcolumnb=0;
 		row = worksheet.getRow(2);
+		System.out.println("Get all column names");
+		columncount = row.getPhysicalNumberOfCells();
+		System.out.println(columncount);
+		for (int i = 0; i < columncount; i++) {
+			String cellValue = row.getCell(i).toString();
+			System.out.println("Column names are - "+cellValue);
+			
+			if(cellValue.equalsIgnoreCase("Overriding Name"))
+			{
+				indexcolumnb=i;
+				System.out.println("Found column name at index - "+indexcolumnb);
+				break;
+			}
+		}
+
+		System.out.println("Enter data into a 2D array");
+		String[][] data=new String[rowCount][2];
+		for (int i = 0; i < rowCount; i++) {
+			data[i][0]=worksheet.getRow(i).getCell(0).toString();
+			data[i][1]=worksheet.getRow(i).getCell(indexcolumnb).toString();
+		}
+		System.out.println("Print array values");
+		for (int i = 2; i < rowCount; i++) {
+			System.out.println(data[i][0]+" - "+ data[i][1]);
+		}
+		
+		
 		cellData = row.getCell(0);
 		System.out.println(cellData.toString());
-
 		
 		System.out.println("Get list of Row values");
 		List<String> listOfValues = new ArrayList<>();
