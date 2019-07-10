@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -46,7 +47,11 @@ public class GetCellValueForColumnName {
 
 		
 		System.out.println("Write cell values - ");
-		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex);
+		List<String> fieldList = Arrays.asList("FieldListOne","FieldListTwo","FieldListThree");
+		List<String> overrideList = Arrays.asList("OverrideListOne","OverrideListTwo","OverrideistThree");
+		List<String> statusList = Arrays.asList("StatusListOne","StatusListTwo","StatusListThree");
+		
+		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex,fieldList, overrideList , statusList);
 		
 //		System.out.println("Create a new excel workbook at given location - ");
 //		create_new_Excel(System.getProperty("user.dir"));
@@ -152,7 +157,7 @@ public class GetCellValueForColumnName {
 	 * Creation Date: 28TH JUNE,2019
 	 */
 	private static void writeCellValues(String workbookLocation, String worksheetName, String columnNameReference2,
-			int rowindex) throws IOException {
+			int rowindex, List<String> fieldList, List<String> overrideList, List<String> statusList) throws IOException {
 
 		System.out.println("Workbooklocation is " + workbookLocation);
 		File fileObj = new File(workbookLocation);
@@ -201,6 +206,17 @@ public class GetCellValueForColumnName {
 		workbook.getSheet(worksheetName).getRow(0).createCell(0).setCellValue("Field");
 		workbook.getSheet(worksheetName).getRow(0).createCell(1).setCellValue("Override");
 		workbook.getSheet(worksheetName).getRow(0).createCell(2).setCellValue("Status");
+		
+		for (String fieldString: fieldList) {
+			System.out.println("Field list values are - "+fieldString);
+		}
+		
+		for (int i = 0; i < fieldList.size(); i++) {
+			workbook.getSheet(worksheetName).createRow(i+1).createCell(0).setCellValue(fieldList.get(i).toString());
+			workbook.getSheet(worksheetName).getRow(i+1).createCell(1).setCellValue(overrideList.get(i).toString());
+			workbook.getSheet(worksheetName).getRow(i+1).createCell(2).setCellValue(statusList.get(i).toString());
+			
+		}
 		
 		System.out.println("Writing File Output Stream");
 		FileOutputStream fos = new FileOutputStream(fileObj);
