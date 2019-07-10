@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.Assert;
 
 public class GetCellValueForColumnName {
 
@@ -33,8 +34,8 @@ public class GetCellValueForColumnName {
 	private static FileOutputStream fos;
 
 	// Method variables to pass
-	private static String workbookLocation = "/Users/zaheer/Documents/GitHub/Abhinav/Sanjay/src/main/java/Workbooks/SampleTest.xlsx";
-	private static String worksheetName = "First";
+	private static String workbookLocation = "/Users/zaheer/Documents/GitHub/Abhinav/Sanjay/src/main/java/Workbooks/Master.xlsx";
+	private static String worksheetName = "Custom";
 	private final static int rowIndex = 0;
 	private static String columnNameReference = "Name";
 	private static int iteratorforloop = 0;
@@ -44,8 +45,8 @@ public class GetCellValueForColumnName {
 //				+ getCellValueAt(workbookLocation, worksheetName, columnNameReference, rowIndex));
 
 		
-//		System.out.println("Write cell values - ");
-//		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex);
+		System.out.println("Write cell values - ");
+		writeCellValues(workbookLocation, worksheetName, columnNameReference, rowIndex);
 		
 //		System.out.println("Create a new excel workbook at given location - ");
 //		create_new_Excel(System.getProperty("user.dir"));
@@ -53,8 +54,8 @@ public class GetCellValueForColumnName {
 //		System.out.println("Create a new worksheet inside current workbook.");
 //		create_new_worksheet("master.xlsx");
 		
-		System.out.println("Get Row data in variables");
-		getRowDatainVariables();
+//		System.out.println("Get Row data in variables");
+//		getRowDatainVariables();
 	}
 
 	private static void getRowDatainVariables() throws FileNotFoundException, IOException {
@@ -151,30 +152,63 @@ public class GetCellValueForColumnName {
 	 * Creation Date: 28TH JUNE,2019
 	 */
 	private static void writeCellValues(String workbookLocation, String worksheetName, String columnNameReference2,
-			int rowindex) {
+			int rowindex) throws IOException {
+
+		System.out.println("Workbooklocation is " + workbookLocation);
+		File fileObj = new File(workbookLocation);
+
+		System.out.println("File location is " + fileObj.getAbsolutePath());
+
+		System.out.println("Check if file exists - " + fileObj.exists() + "  -  " + fileObj.isFile());
+
+		if (fileObj.exists() == true && fileObj.isFile() == true) {
+			System.out.println("File exists....");
+		} else {
+			System.out.println("File does not exist. Creating a new file with same name");
+			FileOutputStream fosObj = new FileOutputStream(fileObj);
+			fosObj.close();
+		}
+
+		workbookLocation = fileObj.getAbsolutePath();
+		System.out.println("Workbooklocation is " + workbookLocation);
 
 		try {
 			workbook = new XSSFWorkbook(workbookLocation);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		worksheet = workbook.getSheet(worksheetName);
-		System.out.println("Check if the cell value exists");
-		
-		extracted(columncount,columnNameReference,rowindex);
-		
-		rowCell = workbook.getSheet(worksheetName).getRow(rowindex).getCell(5);
-		
-		try {
-			System.out.println(rowCell.toString());
-			
-		} catch (Exception e) {
-			System.out.println("String is empty. Start writing data");
-			rowCell.setCellValue("Hello Zaheer");
-		}
-		
 
+		worksheet = workbook.getSheet(worksheetName);
+		System.out.println("Check if worksheet is null - " + worksheet.getSheetName());
+		if (worksheet == null) {
+			System.out.println("Sheet does not exist. Create a new worksheet.");
+			worksheet = workbook.createSheet(worksheetName);
+		}
+
+//		System.out.println("Check if the cell value exists");
+//		extracted(columncount, columnNameReference, rowindex);
+
+//		rowCell = workbook.getSheet(worksheetName).getRow(rowindex).getCell(5);
+//		try {
+//			System.out.println(rowCell.toString());
+//
+//		} catch (Exception e) {
+//			System.out.println("String is empty. Start writing data");
+//			rowCell.setCellValue("Hello Zaheer");
+//		}
+
+		System.out.println("Create new columns");
+		workbook.getSheet(worksheetName).getRow(0).createCell(0).setCellValue("Field");
+		workbook.getSheet(worksheetName).getRow(0).createCell(1).setCellValue("Override");
+		workbook.getSheet(worksheetName).getRow(0).createCell(2).setCellValue("Status");
+		
+		System.out.println("Writing File Output Stream");
+		FileOutputStream fos = new FileOutputStream(fileObj);
+		workbook.write(fos);
+
+		System.out.println("Closing FOS and Workbook");
+		fos.close();
+		workbook.close();
 	}
 
 	private static void extracted(int columncount, String columnNameReference, int rowIndex) {
